@@ -6,25 +6,27 @@ class SearchBar extends React.Component {
     warning: "must be 4 letter",
   };
 
-  onFormSubmit(event) {
+  onFormSubmit = (event) => {
     event.preventDefault();
-  }
+    this.props.userInput(this.state.term);
+  };
 
   render() {
     return (
       <div className="ui segment">
-        <form onSubmit={this.onFormSubmit} className="ui form">
+        <form
+          onSubmit={(event) => {
+            this.onFormSubmit(event);
+          }}
+          className="ui form"
+        >
           <div className="field">
+            <label>Search Image</label>
             <input
               type="text"
               value={this.state.term}
               onChange={(e) => this.setState({ term: e.target.value })}
             ></input>
-            <label>
-              {this.state.term.length < 4 && this.state.term.length > 0
-                ? "Type at least 4 characters"
-                : ""}
-            </label>
           </div>
         </form>
       </div>
