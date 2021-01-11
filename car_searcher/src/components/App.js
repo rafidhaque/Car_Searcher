@@ -8,14 +8,19 @@ class App extends React.Component {
   };
 
   onSearchSubmit = (term) => {
-    axios.get("https://api.unsplash.com/search/photos", {
-      params: {
-        query: term,
-      },
-      headers: {
-        Authorization: "Client-ID FjS72IVU8WGKh5H05V4ygXHKCRxsKXLRsQJDV2cW6ho",
-      },
-    });
+    axios
+      .get("https://api.unsplash.com/search/photos", {
+        params: {
+          query: term,
+        },
+        headers: {
+          Authorization:
+            "Client-ID FjS72IVU8WGKh5H05V4ygXHKCRxsKXLRsQJDV2cW6ho",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      });
     this.setState({ searchItem: term });
   };
 
