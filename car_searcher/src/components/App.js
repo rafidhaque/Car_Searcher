@@ -7,28 +7,30 @@ class App extends React.Component {
     searchItem: "",
   };
 
-  onSearchSubmit = (term) => {
-    axios
-      .get("https://api.unsplash.com/search/photos", {
-        params: {
-          query: term,
-        },
-        headers: {
-          Authorization:
-            "Client-ID FjS72IVU8WGKh5H05V4ygXHKCRxsKXLRsQJDV2cW6ho",
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      });
-    this.setState({ searchItem: term });
+  onSearchSubmit = async (term) => {
+    const response = await axios.get("https://api.unsplash.com/search/photos", {
+      params: {
+        query: term,
+      },
+      headers: {
+        Authorization: "Client-ID FjS72IVU8WGKh5H05V4ygXHKCRxsKXLRsQJDV2cW6ho",
+      },
+    });
+
+    console.log(response.data.results[0].urls.full);
+    this.setState({ searchItem: response.data.results[0].urls.full });
   };
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar userInput={this.onSearchSubmit} />
-        <p>{this.state.searchItem}</p>
+        <img
+          alt="avatar"
+          src={this.state.searchItem}
+          width="500"
+          height="600"
+        />
       </div>
     );
   }
